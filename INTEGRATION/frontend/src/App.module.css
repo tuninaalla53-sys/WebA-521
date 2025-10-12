@@ -1,0 +1,70 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.appHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.appHeader h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.taskNav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.navButton {
+  padding: 10px 20px;
+  border: 2px solid #3498db;
+  background: white;
+  color: #3498db;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  background: #3498db;
+  color: white;
+}
+
+.navButton.active {
+  background: #2980b9;
+  color: white;
+  border-color: #2980b9;
+}
+
+.taskContainer {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.taskTitle {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 10px;
+}
+
+.employeeList {
+  list-style: none;
+}
+
+.employeeItem {
+  padding: 10px;
+  margin: 5px 0;
+  background: #ecf0f1;
+  border-radius: 5px;
+  border-left: 4px solid #3498db;
+}
