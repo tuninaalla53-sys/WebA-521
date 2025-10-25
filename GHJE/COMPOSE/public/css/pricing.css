@@ -1,0 +1,87 @@
+
+body {
+    font-family: Arial, sans-serif; 
+    background-color: #f4f4f4; 
+    margin: 0; 
+    padding: 20px; 
+    min-height: 100vh; 
+}
+
+/* Контейнер для карточек */
+.pricing-container {
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; 
+    align-items: flex-start; 
+    margin-top: 50px; 
+    flex-wrap: wrap; 
+}
+
+/* Общие стили карточек */
+.pricing-card {
+    background: white; 
+    padding: 20px; 
+    text-align: center; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 1s ease, width 1s ease, height 1s ease; /* Анимация */
+    width: 220px; 
+    height: 350px; 
+}
+
+/* Эффект при наведении */
+.pricing-card:hover {
+    transform: scale(1.1); 
+}
+
+/* Стили для кнопок покупки */
+.buy-btn {
+    padding: 10px 20px; 
+    border: none;
+    cursor: pointer; 
+    font-weight: bold; 
+    border-radius: 5px; 
+    margin-top: 15px; 
+}
+
+/* Цвет кнопки для Enterprise */
+.enterprise .buy-btn {
+    background-color: pink;
+}
+
+/* Цвет кнопки для Professional */
+.professional .buy-btn {
+    background-color: orange;
+}
+
+/* Цвет кнопки для Standard */
+.standard .buy-btn {
+    background-color: lightblue;
+}
+
+/* Цвет кнопки для Basic */
+.basic .buy-btn {
+    background-color: lightgreen;
+}
+
+/* Заголовки в карточках */
+.pricing-card h3 {
+    margin-bottom: 15px; 
+    color: #333; 
+}
+
+/* Цена в карточках */
+.pricing-card .price {
+    font-size: 24px; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+    color: #555; 
+}
+
+/* Особенности тарифов */
+.pricing-card p {
+    margin: 8px 0; 
+    font-size: 14px; 
+    color: #666; 
+    line-height: 1.4; 
+}

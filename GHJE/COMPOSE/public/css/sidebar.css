@@ -1,0 +1,62 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* Основные стили для бокового меню */
+.sidebar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 80px; 
+    height: 100vh; 
+    background: #333; 
+    color: white;
+    transition: width 1s ease; 
+    overflow: hidden; 
+    z-index: 1000; 
+    text-align: center; 
+}
+
+/* При наведении меню раскрывается */
+.sidebar:hover {
+    width: 250px; 
+}
+
+/* Иконка меню */
+.menu-icon{
+    text-align: center;
+    font-size: 24px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+/* Стили для изображений в меню */
+.menu img {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+
+/* Стили пунктов меню */
+.menu li {
+    margin: 50px auto;
+    transition: background 0.3s; /* Плавное затемнение при наведении */
+}
+
+/* Затемнение фона при наведении */
+.menu li:hover {
+    background: #555; 
+}
+
+/* Контент страницы */
+.content {
+    margin-left: 100px; 
+    margin-bottom: 50px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 20px;
+}
