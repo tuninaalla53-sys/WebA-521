@@ -155,6 +155,12 @@ return [
     |
     */
 
+'providers' => [
+    // ...
+    TCG\Voyager\VoyagerServiceProvider::class,
+    // ...
+],
+
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
          * Package Service Providers...
@@ -182,6 +188,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+         'Voyager' => TCG\Voyager\Facades\Voyager::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
