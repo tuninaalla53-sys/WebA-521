@@ -4,14 +4,29 @@
 
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
-
+ use App\Http\Controllers\TaskController;
 Route::get('/', function () {
     return 'Sakila API Project - Go to /admin for Voyager';
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+// Route::group(['prefix' => 'admin'], function () {
+//     Voyager::routes();
+
+
+
+
+
+// Главная страница со списком заданий
+Route::get('/', function () {
+    return view('welcome');
 });
+
+// Маршруты для каждого задания
+Route::get('/task1', [TaskController::class, 'task1']);
+Route::get('/task2', [TaskController::class, 'task2']);
+Route::get('/task3', [TaskController::class, 'task3']);
+Route::get('/task4', [TaskController::class, 'task4']);
+Route::get('/task5', [TaskController::class, 'task5']);
 // use App\Http\Controllers\NewsController;
 
 
