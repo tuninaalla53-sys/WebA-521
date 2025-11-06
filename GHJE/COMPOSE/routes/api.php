@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\ActorController;
 // use App\Http\Controllers\StatsController;
 
+
+// routes/api.php
+use App\Http\Controllers\Api\TokenController;
+
+Route::post('/tokens/create', [TokenController::class, 'createToken']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [TokenController::class, 'getUser']);
+    Route::post('/tokens/revoke', [TokenController::class, 'revokeTokens']);
+});
+
 // // Метаданные
 // Route::get('/meta/tables', [MetaController::class, 'tables']);
 // Route::get('/meta/schema/{table}', [MetaController::class, 'schema']);

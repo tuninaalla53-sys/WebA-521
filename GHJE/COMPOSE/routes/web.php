@@ -3,11 +3,49 @@
 
 
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Facades\Voyager;
- use App\Http\Controllers\TaskController;
+// use TCG\Voyager\Facades\Voyager;
+//  use App\Http\Controllers\TaskController;
+
+
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LogoutController;
+
+
+// Главная страница - перенаправляем на логин или дашборд
 Route::get('/', function () {
-    return 'Sakila API Project - Go to /admin for Voyager';
+    return auth()->check() ? redirect('/dashboard') : redirect('/login');
 });
+
+// Регистрация
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+// Вход
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
+// Выход
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+// Защищенная страница
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
+})->middleware('auth')->name('dashboard');
+
+// Voyager admin (оставляем как есть)
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+// Главная страница
+// Route::get('/', function () {
+//     return auth()->check() ? redirect('/dashboard') : view('welcome');
+// });
+// Route::get('/', function () {
+//     return 'Sakila API Project - Go to /admin for Voyager';
+// });
 
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();
@@ -17,16 +55,16 @@ Route::get('/', function () {
 
 
 // Главная страница со списком заданий
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Маршруты для каждого задания
-Route::get('/task1', [TaskController::class, 'task1']);
-Route::get('/task2', [TaskController::class, 'task2']);
-Route::get('/task3', [TaskController::class, 'task3']);
-Route::get('/task4', [TaskController::class, 'task4']);
-Route::get('/task5', [TaskController::class, 'task5']);
+// Route::get('/task1', [TaskController::class, 'task1']);
+// Route::get('/task2', [TaskController::class, 'task2']);
+// Route::get('/task3', [TaskController::class, 'task3']);
+// Route::get('/task4', [TaskController::class, 'task4']);
+// Route::get('/task5', [TaskController::class, 'task5']);
 // use App\Http\Controllers\NewsController;
 
 
