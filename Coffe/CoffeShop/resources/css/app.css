@@ -1,0 +1,41 @@
+
+/* Добавьте в конец файла resources/css/app.css */
+
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.menu-item {
+    padding: 15px 25px;
+    background-color: #8b6b4d;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.menu-item:hover {
+    background-color: #a17f5f;
+    transform: translateY(-3px);
+    color: white;
+    text-decoration: none;
+}
+
+.image-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}

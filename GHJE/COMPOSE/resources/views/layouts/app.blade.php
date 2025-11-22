@@ -1,38 +1,31 @@
-
-<!-- resources/views/layouts/app.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
+<<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Laravel Tasks - COMPOSE</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold">MyApp</a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    @auth
-                        <span>Welcome, {{ auth()->user()->name }}</span>
-                        <form method="POST" action="/logout">
-                            @csrf
-                            <button type="submit" class="text-blue-600 hover:text-blue-800">Logout</button>
-                        </form>
-                    @else
-                        <a href="/login" class="text-blue-600 hover:text-blue-800">Login</a>
-                        <a href="/register" class="text-blue-600 hover:text-blue-800">Register</a>
-                    @endauth
-                </div>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('tasks.index') }}">COMPOSE Project</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{{ route('tasks.task1') }}">Задание 1</a>
+                <a class="nav-link" href="{{ route('tasks.task2') }}">Задание 2</a>
+                <a class="nav-link" href="{{ route('tasks.task3') }}">Задание 3</a>
+                <a class="nav-link" href="{{ route('tasks.task4') }}">Задание 4</a>
+                <a class="nav-link" href="{{ route('tasks.task5') }}">Задание 5</a>
             </div>
         </div>
     </nav>
 
-    <main>
+    <div class="container mt-4">
         @yield('content')
-    </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

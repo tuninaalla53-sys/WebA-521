@@ -3,110 +3,147 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\NumberConverterService;
+use App\Services\CartService;
 
 class TaskController extends Controller
 {
+    /**
+     * Функция для задания 1: Проверка массива на отрицательные числа
+     */
+    private function highlightNegativeNumbers(array $array): bool
+    {
+        if (empty($array)) {
+            return false;
+        }
+        
+        foreach ($array as $value) {
+            if (!is_numeric($value)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
+     * Вспомогательная функция для отображения массива с подсветкой
+     */
+    private function displayArrayWithHighlight(array $array): string
+    {
+        $result = '[';
+        
+        foreach ($array as $index => $value) {
+            if ($index > 0) {
+                $result .= ', ';
+            }
+            
+            if ($value < 0) {
+                $result .= "<span style='color: red; font-weight: bold;'>$value</span>";
+            } else {
+                $result .= $value;
+            }
+        }
+        
+        $result .= ']';
+        return $result;
+    }
+
+    /**
+     * Главная страница со списком заданий
+     */
+    public function index()
+    {
+        return view('tasks.index');
+    }
+
+    /**
+     * Задание 1: Подсветка отрицательных чисел
+     */
     public function task1()
     {
-        $employees = [
-            ['name' => 'Иван Иванов', 'company' => 'Google', 'position' => 'Разработчик'],
-            ['name' => 'Петр Петров', 'company' => 'Microsoft', 'position' => 'Дизайнер'],
-            ['name' => 'Мария Сидорова', 'company' => 'Apple', 'position' => 'Менеджер'],
-            ['name' => 'Анна Ковалева', 'company' => 'Google', 'position' => 'Аналитик'],
-            ['name' => 'Сергей Смирнов', 'company' => 'Amazon', 'position' => 'Тестировщик'],
-            ['name' => 'Ольга Новикова', 'company' => 'Microsoft', 'position' => 'Разработчик'],
-            ['name' => 'Дмитрий Кузнецов', 'company' => 'Apple', 'position' => 'Дизайнер'],
-            ['name' => 'Елена Васнецова', 'company' => 'Google', 'position' => 'Менеджер'],
-            ['name' => 'Алексей Попов', 'company' => 'Amazon', 'position' => 'Аналитик'],
-            ['name' => 'Наталья Орлова', 'company' => 'Microsoft', 'position' => 'Тестировщик']
-        ];
-
-        return view('tasks.task1', compact('employees'));
+        $testArray = [10, -5, 3, -8, 15, 0, -1, 7];
+        
+        $result = $this->highlightNegativeNumbers($testArray);
+        
+        return view('tasks.task1', [
+            'originalArray' => $testArray,
+            'result' => $result,
+            'displayArray' => $this->displayArrayWithHighlight($testArray)
+        ]);
     }
 
+    /**
+     * Задание 2: Конвертер чисел в текст
+     */
     public function task2()
     {
-        $employees = [
-            ['name' => 'Иван Иванов', 'company' => 'Google', 'position' => 'Разработчик'],
-            ['name' => 'Петр Петров', 'company' => 'Microsoft', 'position' => 'Дизайнер'],
-            ['name' => 'Мария Сидорова', 'company' => 'Apple', 'position' => 'Менеджер'],
-            ['name' => 'Анна Ковалева', 'company' => 'Google', 'position' => 'Аналитик'],
-            ['name' => 'Сергей Смирнов', 'company' => 'Amazon', 'position' => 'Тестировщик'],
-            ['name' => 'Ольга Новикова', 'company' => 'Microsoft', 'position' => 'Разработчик'],
-            ['name' => 'Дмитрий Кузнецов', 'company' => 'Apple', 'position' => 'Дизайнер'],
-            ['name' => 'Елена Васнецова', 'company' => 'Google', 'position' => 'Менеджер'],
-            ['name' => 'Алексей Попов', 'company' => 'Amazon', 'position' => 'Аналитик'],
-            ['name' => 'Наталья Орлова', 'company' => 'Microsoft', 'position' => 'Тестировщик']
-        ];
-
-        $groupedEmployees = [];
-        foreach ($employees as $employee) {
-            $groupedEmployees[$employee['company']][] = $employee;
+        $converter = new NumberConverterService();
+        
+        $testNumbers = [4532, 123, 7890, 15, 1001, 7, 210];
+        $convertedNumbers = [];
+        
+        foreach ($testNumbers as $number) {
+            $convertedNumbers[$number] = $converter->convertToText($number);
         }
-
-        return view('tasks.task2', compact('groupedEmployees'));
+        
+        return view('tasks.task2', [
+            'convertedNumbers' => $convertedNumbers
+        ]);
     }
 
+    /**
+     * Задание 3: Генерация div элементов
+     */
     public function task3()
     {
-        $numbers = [1];
-        for ($i = 1; $i < 10; $i++) {
-            $previous = $numbers[$i - 1];
-            do {
-                $newNumber = rand($previous + 1, $previous + 20);
-            } while ($newNumber <= $previous);
-            $numbers[] = $newNumber;
-        }
-
-        return view('tasks.task3', compact('numbers'));
+        return view('tasks.task3');
     }
 
+    /**
+     * Задание 4: Карточки товаров
+     */
     public function task4()
     {
-        $numbers = [];
-        for ($i = 0; $i < 10; $i++) {
-            $floatNumber = rand(100, 1000) / 100;
-            $precision = rand(1, 3);
-            $rounded = round($floatNumber, $precision);
-            
-            $numbers[] = [
-                'original' => $floatNumber,
-                'precision' => $precision,
-                'rounded' => $rounded
-            ];
-        }
-
-        return view('tasks.task4', compact('numbers'));
+        // Используем ваши реальные изображения из public/images/phones/
+        $phones = [
+            [
+                'name' => 'iPhone 15 Pro',
+                'image' => asset('images/phones/orig1.webp'), // Ваше изображение
+                'price' => 99999
+            ],
+            [
+                'name' => 'Samsung Galaxy S24',
+                'image' => asset('images/phones/orig2.webp'), // Ваше изображение
+                'price' => 89999
+            ],
+            [
+                'name' => 'Google Pixel 8',
+                'image' => asset('images/phones/orig3.webp'), // Ваше изображение
+                'price' => 75999
+            ]
+        ];
+        
+        return view('tasks.task4', ['phones' => $phones]);
     }
 
+    /**
+     * Задание 5: Корзина товаров
+     */
     public function task5()
     {
-        $matrix = [];
-        $minValues = [];
-        $minPositions = [];
+        // Используем ваши реальные изображения
+        $cartItems = [
+            ['name' => 'iPhone 15 Pro', 'image' => asset('images/phones/orig1.webp'), 'price' => 99999],
+            ['name' => 'Samsung Galaxy S24', 'image' => asset('images/phones/orig2.webp'), 'price' => 89999],
+            ['name' => 'iPhone 15 Pro', 'image' => asset('images/phones/orig1.webp'), 'price' => 99999],
+            ['name' => 'Google Pixel 8', 'image' => asset('images/phones/orig3.webp'), 'price' => 75999],
+            ['name' => 'Samsung Galaxy S24', 'image' => asset('images/phones/orig2.webp'), 'price' => 89999],
+        ];
         
-        for ($i = 0; $i < 5; $i++) {
-            for ($j = 0; $j < 5; $j++) {
-                $matrix[$i][$j] = rand(10, 100);
-            }
-        }
+        $cartService = new CartService();
+        $processedCart = $cartService->processCart($cartItems);
         
-        for ($j = 0; $j < 5; $j++) {
-            $columnValues = array_column($matrix, $j);
-            $minValue = min($columnValues);
-            $minValues[$j] = $minValue;
-            
-            $minPositions[$j] = [];
-            foreach ($matrix as $rowIndex => $row) {
-                if ($row[$j] == $minValue) {
-                    $minPositions[$j][] = $rowIndex;
-                }
-            }
-        }
-        
-        $minSum = array_sum($minValues);
-        $minAverage = $minSum / count($minValues);
-
-        return view('tasks.task5', compact('matrix', 'minValues', 'minPositions', 'minSum', 'minAverage'));
+        return view('tasks.task5', ['cart' => $processedCart]);
     }
 }
