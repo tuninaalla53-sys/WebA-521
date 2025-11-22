@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\TaskController;
+// use App\Http\Controllers\TaskController;
+use App\Http\Controllers\FormController;
 
 
 // Главная страница - перенаправляем на логин или дашборд
@@ -40,13 +41,27 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+// Маршрут для отображения формы регистрации
+Route::get('/register', [FormController::class, 'showRegistrationForm'])->name('register.form');
 
-Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('/task1', [TaskController::class, 'task1'])->name('tasks.task1');
-Route::get('/task2', [TaskController::class, 'task2'])->name('tasks.task2');
-Route::get('/task3', [TaskController::class, 'task3'])->name('tasks.task3');
-Route::get('/task4', [TaskController::class, 'task4'])->name('tasks.task4');
-Route::get('/task5', [TaskController::class, 'task5'])->name('tasks.task5');
+// Маршрут для обработки отправки формы
+Route::post('/register', [FormController::class, 'processRegistration'])->name('register.submit');
+
+// Корневой маршрут перенаправляет на форму регистрации
+Route::get('/', function () {
+    return redirect()->route('register.form');
+});
+?>
+
+
+
+<!--  
+// Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+// Route::get('/task1', [TaskController::class, 'task1'])->name('tasks.task1');
+// Route::get('/task2', [TaskController::class, 'task2'])->name('tasks.task2');
+// Route::get('/task3', [TaskController::class, 'task3'])->name('tasks.task3');
+// Route::get('/task4', [TaskController::class, 'task4'])->name('tasks.task4');
+// Route::get('/task5', [TaskController::class, 'task5'])->name('tasks.task5');
 
 // Главная страница
 // Route::get('/', function () {
@@ -440,3 +455,4 @@ Route::get('/task5', [TaskController::class, 'task5'])->name('tasks.task5');
 // Route::prefix('my-voyager-admin')->group(function () {
 //     Voyager::routes();
 // });
+-->
