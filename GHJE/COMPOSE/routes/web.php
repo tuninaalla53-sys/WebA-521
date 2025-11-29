@@ -12,7 +12,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 // use App\Http\Controllers\TaskController;
-use App\Http\Controllers\FormController;
+// use App\Http\Controllers\FormController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CommentController;
 
 
 // Главная страница - перенаправляем на логин или дашборд
@@ -51,6 +53,21 @@ Route::post('/register', [FormController::class, 'processRegistration'])->name('
 Route::get('/', function () {
     return redirect()->route('register.form');
 });
+
+// / Маршруты для продуктов
+Route::resource('products', ProductController::class);
+
+// Маршруты для комментариев
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+// Главная страница
+Route::get('/', function () {
+    return redirect()->route('products.index');
+});
+
+
+
 ?>
 
 
